@@ -38,9 +38,7 @@ class DLModel:
                   kernel_regularizer=regularizers.l2(0.01),
                   name='out_2048')
         )
-        if is_gpu_available():
-            gpus = get_available_gpus()
-            model = multi_gpu_model(model, gpus)
+        
         return model
 
     def generate_batch_data_random(self, data, labels, batch_size):
