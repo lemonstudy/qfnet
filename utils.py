@@ -1,9 +1,9 @@
 import os
-from keras.losses import mean_squared_error
+from tensorflow.keras.losses import mean_squared_error
 import numpy as np
-import keras.backend as K
+import tensorflow.keras.backend as K
 import tensorflow as tf
-import keras.backend.tensorflow_backend as KTF
+#import keras.backend.tensorflow_backend as KTF
 
 
 class Tools:
@@ -80,7 +80,7 @@ def set_gpu():
         config.gpu_options.per_process_gpu_memory_fraction = 0.6  # 设置GPU使用量，但是需求比较大时会自动多分配
         # config.gpu_options.allow_growth=True # 不全部占满显存，按需分配
         session = tf.Session(config=config)
-        KTF.set_session(session)
+        tf.keras.backend.tensorflow_backend.set_session(session)
 
 
 def str_map_float(str_array):

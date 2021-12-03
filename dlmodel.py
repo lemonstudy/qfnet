@@ -1,12 +1,12 @@
 from qlearning import *
 from utils import *
 from network import *
-from keras.models import Sequential
-from keras.layers import Dense, Dropout
-from keras import optimizers
-from keras import regularizers
-from keras.utils import plot_model
-from keras.utils import multi_gpu_model
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras import optimizers
+from tensorflow.keras import regularizers
+from tensorflow.keras.utils import plot_model
+from tensorflow.keras.utils import multi_gpu_model
 
 
 set_gpu()
@@ -83,13 +83,13 @@ class DLModel:
                 net.update()
                 epoch_data = Tools.get_epoch_data(net)
                 outs_best = self.predict(model_best, epoch_data)
-                outs_best = np.reshape(outs_best, (net.BSs, net.subcarrier))
+                outs_best = np.reshape(outs_best, (net.expectBS, net.subcarrier))
                 outs_best_capacity = net.compute_capacity(
                     outs_best + net.power_subcarrier,
                     net.BS_power + np.sum(outs_best, axis=1)
                 )
                 outs = self.predict(model, epoch_data)
-                outs = np.reshape(outs, (net.BSs, net.subcarrier))
+                outs = np.reshape(outs, (net.expectBS, net.subcarrier))
                 outs_capacity = net.compute_capacity(
                     outs + net.power_subcarrier,
                     net.BS_power + np.sum(outs, axis=1)
@@ -126,7 +126,7 @@ class DLModel:
                 cap[0, i] = net.compute_capacity(net.power_subcarrier, net.BS_power)
                 outs_best = self.predict(model_best, epoch_data)
                 outs_best_capacity = net.compute_capacity(
-                    np.reshape(outs_best + net.power_subcarrier.flatten(), (net.BSs, net.subcarrier)),
+                    np.reshape(outs_best + net.power_subcarrier.flatten(), (net.expectBS, net.subcarrier)),
                     net.BS_power + np.sum(outs_best)
                 )
                 cap[1, i] = outs_best_capacity

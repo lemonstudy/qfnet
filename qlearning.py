@@ -261,7 +261,7 @@ class Qlearning:
         if ql_model is not None:
             self.Q = ql_model
         else:
-            for i in range(self.net.BSs):
+            for i in range(self.net.expectBS):
                 self.Q.append(defaultdict(list))
 
         epoch_time = t.time()
@@ -286,7 +286,7 @@ class Qlearning:
                 subcarrier_power_old = self.net.power_subcarrier
                 '''保存数据'''
                 epoch_data = Tools.get_epoch_data(self.net)
-                for i in range(self.net.BSs):
+                for i in range(self.net.expectBS):
                     qfnet_out = outs[0, i * self.net.subcarrier: i * self.net.subcarrier + self.net.subcarrier]
                     '''权重值随着学习次数退火'''
                     if self.count * iter <= 30:

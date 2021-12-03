@@ -68,7 +68,7 @@ class Network:
                 CSI：信道增益信息
                 power_subcarrier：每个子载波上的功率
         '''
-        BS_UE_location = np.vstack((self.()BS_location, self.UE_location))
+        BS_UE_location = np.vstack((self.BS_location, self.UE_location))
 
         all_distance = squareform(pdist(BS_UE_location, 'euclidean'))  # 基站和用户两两之间的距离
         BS_UE_distance = all_distance[self.expectBS:, :self.expectBS]  # 得到用户到基站的距离
